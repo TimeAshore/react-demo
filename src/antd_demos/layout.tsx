@@ -34,6 +34,7 @@ const LayoutApp: React.FC = () => {
             </Header>
             <Content style={{ padding: '50px 50px', alignItems: 'center', flex: 1 }}>
                 {/*<TableApp />*/}
+                <h2>User Guide</h2>
                 <StepsApp />
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
