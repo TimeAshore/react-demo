@@ -1,16 +1,17 @@
 import React from 'react';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+// import { Breadcrumb, theme } from 'antd';
+import { Layout, Menu } from 'antd';
 import { Image } from 'antd';
 
-import TableApp from "./table";
+// import TableApp from "./table";
 import StepsApp from "./steps";
 
 const { Header, Content, Footer } = Layout;
 
 const LayoutApp: React.FC = () => {
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
+    // const {
+    //     token: { colorBgContainer },
+    // } = theme.useToken();
 
     return (
         <Layout className="layout" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>

@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vite-project
+  namespace: dt
+spec:
+  replicas: 3
+  selector:  # added selector to match with labels in template  8/10 try to not use selector
+    matchLabels:
+      component: vite-project
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        component: vite-project
+    spec:
+      containers:
+        - name: vite-project-dev
+          image: dscacr.azurecr.io/dt-front:v0.1.1
+          imagePullPolicy: Always
+          env:
+          - name: TZ
+            value: Asia/Shanghai
+          resources:
+            limits:
+              cpu: 1
+              memory: 1024Mi
+            requests:
+              cpu: 0.2
+              memory: 256Mi
+          ports:
+          - containerPort: 80
+      imagePullSecrets:
+      - name: dt-pull-img
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vite-project
+  namespace: dt
+  labels:
+    component: vite-project
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    component: vite-project

@@ -1,22 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import { useState } from 'react'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
 import './App.css'
-import DemoApp from './antd_demos/01.tsx'
+// import DemoApp from './antd_demos/01.tsx'
 import LayoutApp from './antd_demos/layout.tsx'
-import StepsApp from "./antd_demos/steps";
-
-import { DatePicker } from 'antd'
-
-
-function func(date: dayjs, dateString: string) {
-    alert(date);
-    alert(dateString);
-}
+// import StepsApp from "./antd_demos/steps";
+//
+// import { DatePicker } from 'antd'
+//
+//
+// function func(date: dayjs, dateString: string) {
+//     alert(date);
+//     alert(dateString);
+// }
 
 function App() {
-  const [count, setCount] = useState(0)
-    const { RangePicker } = DatePicker;
+  // const [count, setCount] = useState(0)
+  //   const { RangePicker } = DatePicker;
   return (
     <>
       {/*<div>*/}

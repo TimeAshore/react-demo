@@ -3,13 +3,17 @@ import { InboxOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import { Divider } from 'antd';
-import { Button } from 'antd';
+import { Button, Flex } from 'antd';
 import { Space } from 'antd';
 import { Carousel } from 'antd';
 import { Image } from 'antd';
 import { Result } from 'antd';
-import { Col, Row, Statistic } from 'antd';
-import CountUp from 'react-countup';
+import { Alert } from 'antd';
+import Marquee from 'react-fast-marquee';
+// import { Col, Row, Statistic } from 'antd';
+// import CountUp from 'react-countup';
+import axios from 'axios';
+
 
 const { Dragger } = Upload;
 
@@ -45,20 +49,74 @@ const UploadApp: React.FC = () => {
         background: '#364d79',
     };
 
-    const formatter = (value: number) => <CountUp end={value} separator="," />;
+    // const formatter = (value: number) => <CountUp end={value} separator="," />;
+
+
+    function ping(): void {
+        console.log('call ping')
+
+        axios.get(`${process.env.VITE_BackendAddress}/dtazure/ping`)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.error('Error ping:', error);
+            });
+    }
+
+    function redisWrite(): void {
+        console.log('call redis')
+
+        // 获取当前时间
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+        const hour = now.getHours();
+        const mintue = now.getMinutes();
+        const second = now.getSeconds();
+        const current_time = `${year}-${month}-${day} ${hour}:${mintue}:${second}`
+
+        axios.get(`${process.env.VITE_BackendAddress}/dtazure/write_to_redis/${current_time}`)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.error('Error write data to redis:', error);
+            });
+    }
 
 
     return <>
-
-
         {/*设置组件间距*/}
         <Space direction="vertical" size="middle" style={{display: 'flex'}}>
+            <Alert
+                banner
+                message={
+                    <Marquee pauseOnHover gradient={false}>
+                        流年似水，岁月如歌，every moment is worth treasuring -- zdb
+                    </Marquee>
+                }
+            />
+            <Divider style={{  borderColor: '#7cb305' }}>This is a divider.</Divider>
+
+            <Flex wrap gap="small" className="site-button-ghost-wrapper">
+                <Button type="primary" onClick={() => ping()} ghost>
+                    Ping test
+                </Button>
+                <Button type="primary" onClick={() => redisWrite()}  danger ghost>
+                    Redis write
+                </Button>
+            </Flex>
+
+            <Divider style={{  borderColor: '#7cb305' }}>This is a divider.</Divider>
+
             <Carousel autoplay>
                 <div style={contentStyle}>
                     <Image
                         preview={false}
                         width="100%"
-                        height="200px"
+                        height="300px"
                         src="src/assets/pexels-rick-otten-983988.jpg"
                     />
                 </div>
@@ -66,7 +124,7 @@ const UploadApp: React.FC = () => {
                     <Image
                         preview={false}
                         width="100%"
-                        height="200px"
+                        height="300px"
                         src="src/assets/4-1P209100R2.jpeg"
                     />
                 </div>
@@ -74,11 +132,13 @@ const UploadApp: React.FC = () => {
                     <Image
                         preview={false}
                         width="100%"
-                        height="200px"
+                        height="300px"
                         src="src/assets/WechatIMG3.jpeg"
                     />
                 </div>
             </Carousel>
+
+            <Divider style={{  borderColor: '#7cb305' }}>This is a divider.</Divider>
 
             <Dragger {...props}>
                 <p className="ant-upload-drag-icon">
@@ -91,19 +151,20 @@ const UploadApp: React.FC = () => {
                 </p>
             </Dragger>
 
-            {/*<br/>*/}
-            {/*<Divider plain>我是一条分割线</Divider>*/}
+            <Divider style={{  borderColor: '#7cb305' }}>This is a divider.</Divider>
 
-            <div>
-                <Row gutter={16}>
-                    <Col span={12}>
-                        <Statistic title="Active Users" value={11280000000093} formatter={formatter} />
-                    </Col>
-                    <Col span={12}>
-                        <Statistic title="Account Balance (CNY)" value={20012089000003} precision={2} formatter={formatter} />
-                    </Col>
-                </Row>
-            </div>
+            {/*<div>*/}
+            {/*    <Row gutter={16}>*/}
+            {/*        <Col span={12}>*/}
+            {/*            <Statistic title="Active Users" value={11280000000093} formatter={formatter} />*/}
+            {/*        </Col>*/}
+            {/*        <Col span={12}>*/}
+            {/*            <Statistic title="Account Balance (CNY)" value={20012089000003} precision={2} formatter={formatter} />*/}
+            {/*        </Col>*/}
+            {/*    </Row>*/}
+            {/*</div>*/}
+
+            {/*<Divider style={{  borderColor: '#7cb305' }}>This is a divider.</Divider>*/}
 
             <Result
                 status="404"
@@ -111,6 +172,8 @@ const UploadApp: React.FC = () => {
                 subTitle="Sorry, the page you visited does not exist."
                 // extra={<Button type="primary">Back Home</Button>}
             />
+
+            <Divider style={{  borderColor: '#7cb305' }}>END.</Divider>
 
         </Space>
     </>
