@@ -1,5 +1,7 @@
 # react-demo
 
+> *Note: This repo is for testing Azure full stack functionalities.*
+
 
 npm install react-countup
 
