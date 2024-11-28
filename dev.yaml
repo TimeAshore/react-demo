@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: vite-project-dev
-          image: dscacr.azurecr.io/dt-front:v0.1.1
+          image: dscacr.azurecr.io/dt-front:v0.1.2
           imagePullPolicy: Always
           env:
           - name: TZ
