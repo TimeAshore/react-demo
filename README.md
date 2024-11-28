@@ -13,6 +13,6 @@ docker push dscacr.azurecr.io/dt-front:v0.1.1
 kubectl apply -f dev.yaml
 ```
 
-## Architecture Diagram
+### Architecture Diagram
 
-![img_8.png](..%2Fazdemo%2Fimg_8.png)
+![architecture.png](./img_8.png)
